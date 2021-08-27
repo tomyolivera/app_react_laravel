@@ -1,10 +1,12 @@
 import React from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+// import { Button } from 'reactstrap';
 
 const Logout = ({ setIsLoggedIn }) => {
-    let history = useHistory();
+    const history = useHistory();
 
     const handleLogout = async () => {
         await axios.post('/logout');
@@ -13,12 +15,10 @@ const Logout = ({ setIsLoggedIn }) => {
     }
 
     return (
-        <Button color=""
-                className="nav-link"
-                onClick={handleLogout}
-            >
-        Logout
-        </Button>
+        <a href="#" className="nav-link d-flex" onClick={handleLogout}>
+            <FontAwesomeIcon className="align-self-center error" icon={faSignOutAlt} />
+            <span className="mx-2">Logout</span>
+        </a>
     )
 }
 

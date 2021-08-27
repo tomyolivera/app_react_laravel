@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Row } from 'reactstrap';
 
 import Task from './Task';
-import Loading from '../Loading';
+import Loading from '../Loading/Loading';
 import ModalForm from './Form/ModalForm';
 
 const Tasks = () => {
@@ -77,8 +77,8 @@ const Tasks = () => {
 
             <Row>
                 {
-                    loading 
-                    ? <Loading size="lg" />
+                    loading
+                    ? <Loading size="md" color="primary" />
                     :    tasks?.map(({id, name, description, finish_date}, i) =>(
                             <Task key={i}
                                 id={id}

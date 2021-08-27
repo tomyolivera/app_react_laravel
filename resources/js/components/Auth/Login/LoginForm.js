@@ -1,56 +1,53 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { Button, FormGroup, Label } from 'reactstrap'
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import Loading from '../../Loading';
 
-const LoginForm = ({ setIsLoggedIn }) => {
-    const [isValid, setIsValid] = useState(true);
-    let history = useHistory();
+import { ValidationLoginSchema } from '../../../Validation';
+
+import { useFlashMessage } from '../../../CustomHooks/useFlashMessage';
+import { useHistory } from 'react-router-dom';
+
+import axios from 'axios';
+
+const LoginForm = ({ getUser, setIsLoggedIn }) => {
+    const { messageJsx, setMessage } = useFlashMessage();
+    const history = useHistory();
 
     return (
         <Formik
-            initialValues={{
-                email: '', password: ''
-            }}
+            initialValues={{ email: '', password: '' }}
+            validationSchema={ValidationLoginSchema}
             onSubmit={async ({ email, password }) => {
                 try {
                     await axios.post('/login', { email, password });
-                    setIsLoggedIn(true);
-                    setIsValid(true);
+                    await getUser();
+                    setIsLoggedIn(true)
                     history.push('/');
                 } catch (e) {
-                    setIsValid(false);
+                    setMessage({ text: "The email or the password is incorrect!", color: "danger" });
                 }
             }}
         >
-        {({ isSubmitting }) => (
+        {({ errors, isSubmitting }) => (
                 <Form>
                     <FormGroup className="mb-3">
-                        <Label htmlFor="email">Email</Label>
-                        <Field className="form-control"
-                                name="email"
-                                autoComplete="off"
-                        />
+                        <Label>Email</Label>
+                        <Field className="form-control" name="email" />
+                        <ErrorMessage name="email" component={() => <span className="error">{errors.email}</span>} />
                     </FormGroup>
 
                     <FormGroup className="mb-3">
-                        <Label htmlFor="password">Password</Label>
-                        <Field className="form-control"
-                                type="password"
-                                name="password"
-                        />
+                        <Label>Password</Label>
+                        <Field className="form-control" name="password" type="password" />
+                        <ErrorMessage name="password" component={() => <span className="error">{errors.password}</span>} />
                     </FormGroup>
 
                     <FormGroup className="mb-3 d-flex">
                         <Button type="submit" color="dark" disabled={isSubmitting}>
-                            Log In
+                            { isSubmitting ? 'Logging In' : 'Log In' }
                         </Button>
 
-                        {
-                            !isValid && <span className="align-self-center error mx-3" style={{fontSize: 18}}>The email or password is invalid</span>
-                        }
+                        { messageJsx }
                     </FormGroup>
                 </Form>
             )}

@@ -13,7 +13,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background: #eee">
     @yield('content')
 
     <script src="{{ asset('js/app.js') }}"></script>

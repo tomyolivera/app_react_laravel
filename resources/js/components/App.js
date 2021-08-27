@@ -5,62 +5,75 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import Home from './Home';
-import Header from './Layouts/Header/Index';
-import Tasks from './Tasks';
+import Header from './Layouts/Header/Header';
+import Tasks from './Tasks/Tasks';
 import LoginForm from './Auth/Login/LoginForm';
 import RegisterForm from './Auth/Register/RegisterForm';
+import Profile from './Profile/Profile';
+import LoadingPage from './Loading/LoadingPage';
 
 function App() {
-    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const userIsLogged = async () => {
+    const checkIfSessionExists = async () => {
+        const res = await axios.get('/user/isLoggedIn');
+        setIsLoggedIn(res.data);
+        return res.data;
+    }
+
+    const getUser = async () => {
         try {
-            const res = await axios.get('/user/isLoggedIn');
-            setIsLoggedIn(res.data);
+            await axios.get('/api/user/').then(res => {
+                setUser(res.data);
+            });
         } catch (e) {
             console.error(e);
-        } finally {
-            setLoading(false);
         }
     }
 
     useEffect(() => {
-        userIsLogged();
+        if(checkIfSessionExists()){
+            getUser();
+        }
     }, [])
 
     return (
-        <Router>
-            <Header Link={Link}
-                    isLoggedIn={isLoggedIn}
-                    setIsLoggedIn={setIsLoggedIn}
-                    loading={loading}
-            />
+        <>
+            {/* <LoadingPage loading={loading} /> */}
+            <Router>
+                <Header Link={Link}
+                        isLoggedIn={isLoggedIn}
+                        setIsLoggedIn={setIsLoggedIn}
+                        loading={loading}
+                        user={user}
+                />
 
-            <Switch>
-                <div className="container mt-3">
-                    <Route path="/" exact>
-                        <Home />
-                    </Route>
-                    {
-                        loading || isLoggedIn
-                        ?   <>
-                                <Route path="/tasks" exact>
-                                    <Tasks />
-                                </Route>
-                            </>
-                        :   <>
-                                <Route path="/login" exact>
-                                    <LoginForm setIsLoggedIn={setIsLoggedIn} />
-                                </Route>
-                                <Route path="/register" exact>
-                                    <RegisterForm setIsLoggedIn={setIsLoggedIn} />
-                                </Route>
-                            </>
-                    }
-                </div>
-            </Switch>
-        </Router>
+                <Switch>
+                    <div className="container mt-3">
+                        <Route path="/" exact component={Home} />
+                        {
+                            loading || isLoggedIn
+                            ?   <>
+                                    <Route path="/tasks" exact component={Tasks} />
+                                    <Route path="/profile" exact>
+                                        <Profile user={user} getUser={getUser} />
+                                    </Route>
+                                </>
+                            :   <>
+                                    <Route path="/login" exact>
+                                        <LoginForm setIsLoggedIn={setIsLoggedIn} getUser={getUser} />
+                                    </Route>
+                                    <Route path="/register" exact>
+                                        <RegisterForm setIsLoggedIn={setIsLoggedIn} getUser={getUser} />
+                                    </Route>
+                                </>
+                        }
+                    </div>
+                </Switch>
+            </Router>
+        </>
     );
 }
 

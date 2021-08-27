@@ -1,10 +1,11 @@
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Logout from '../../Auth/Logout';
-import Loading from '../../Loading';
 
-const Header = ({ Link, isLoggedIn, setIsLoggedIn, loading }) => {
+const Header = ({ Link, isLoggedIn, setIsLoggedIn, user }) => {
     return (
-        <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav className="navbar navbar-expand-md navbar-light shadow-sm">
             <div className="container">
                 <Link to="/" className="navbar-brand">
                     Laravel
@@ -20,17 +21,22 @@ const Header = ({ Link, isLoggedIn, setIsLoggedIn, loading }) => {
 
                     <ul className="navbar-nav ml-auto">
                         {
-                            loading
-                            ? <Loading size="sm" />
-                            : isLoggedIn
+                            isLoggedIn
                                 ?
                                     <>
                                         <li className="nav-item dropdown">
                                             <a id="navbarDropdown" className="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                Logged
+                                                { user.name }
                                             </a>
 
                                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                <Link to="/profile" className="nav-link">
+                                                    <FontAwesomeIcon color="green" icon={faUser} />
+                                                    <span className="mx-2">My Profile</span>
+                                                </Link>
+
+                                                <hr className="m-0" />
+
                                                 <Logout setIsLoggedIn={setIsLoggedIn} />
                                             </div>
                                         </li>
