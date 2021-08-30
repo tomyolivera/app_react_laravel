@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 
 import { Row } from 'reactstrap';
-
+import axios from 'axios';
 import Task from './Task';
-import Loading from '../Loading/Loading';
-import ModalForm from './Form/ModalForm';
+import ModalTasksForm from './Form/ModalTasksForm';
 
 const Tasks = () => {
     const [modal, setModal] = useState(false);
     const [editing, setEditing] = useState(false);
     const [taskEditing, setTaskEditing] = useState({});
     const [tasks, setTasks] = useState([]);
-    const [loading, setLoading] = useState(false);
 
     const toggle = () => setModal(!modal);
     
-    useEffect(() => {
-        getTasks();
-    }, [])
+    useEffect(() => getTasks(), [])
 
     const getTasks = async () => {
         try {
@@ -61,25 +56,24 @@ const Tasks = () => {
     }
 
     return (
-        <div>
+        <div className="tasks">
             <h1>Tasks</h1>
 
             <div className="d-flex mb-3">
-                <ModalForm modal={modal}
-                           setEditing={setEditing}
-                           editing={editing}
-                           taskEditing={taskEditing}
-                           toggle={toggle}
-                           onCreate={onCreate}
-                           onUpdate={onUpdate}
+                <ModalTasksForm modal={modal}
+                                setEditing={setEditing}
+                                editing={editing}
+                                taskEditing={taskEditing}
+                                toggle={toggle}
+                                onCreate={onCreate}
+                                onUpdate={onUpdate}
                 />
             </div>
 
-            <Row>
-                {
-                    loading
-                    ? <Loading size="md" color="primary" />
-                    :    tasks?.map(({id, name, description, finish_date}, i) =>(
+            <div className="rowTasks">
+                <Row>
+                    {
+                        tasks?.map(({id, name, description, finish_date}, i) => (
                             <Task key={i}
                                 id={id}
                                 name={name}
@@ -92,8 +86,9 @@ const Tasks = () => {
                                 setTaskEditing={setTaskEditing}
                             />
                         ))
-                }
-            </Row>
+                    }
+                </Row>
+            </div>
         </div>
     )
 }

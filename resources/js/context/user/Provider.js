@@ -3,18 +3,28 @@ import UserContext from './index';
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState({})
+    // const [isLoggedIn, setIsLoggedIn] = useState(false)
     
     const getUser = async () => {
-        const res = await axios.get('/api/user');
-        setUser(res.data);
+        await axios.get('/api/user').then(({data}) => setUser(data));
     }
+
+    // async function checkIfSessionExists() {
+    //     await axios.get('/user/isLoggedIn').then(({data}) => setIsLoggedIn(data));
+    // }
     
     useEffect(() => {
-        getUser();
+        (async function(){
+            // if(await checkIfSessionExists())
+                await getUser();
+        })();
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{
+            user, setUser, getUser,
+            // isLoggedIn, setIsLoggedIn, checkIfSessionExists
+        }}>
             { children }
         </UserContext.Provider>
     )

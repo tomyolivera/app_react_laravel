@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import ProfileData from './ProfileData';
 import ProfileForm from './ProfileForm'
 
-import { useFlashMessage } from '../../../CustomHooks/useFlashMessage';
+import { useFlashMessage } from '../../../../CustomHooks/useFlashMessage';
+import UserContext from '../../../../context/user';
 
-const ProfileConfig = ({ user, getUser }) => {
+const ProfileConfig = () => {
+    const { user, getUser } = useContext(UserContext);
     const [editing, setEditing] = useState(false);
     const { messageJsx, setMessage } = useFlashMessage();
 

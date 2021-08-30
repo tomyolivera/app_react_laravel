@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import UserContext from '../../../../context/user';
 
-import { useFlashMessage } from '../../../CustomHooks/useFlashMessage';
+import { useFlashMessage } from '../../../../CustomHooks/useFlashMessage';
 import ChangePasswordData from './ChangePasswordData';
 import ChangePasswordForm from './ChangePasswordForm';
 
-const ChangePasswordConfig = ({ user, getUser }) => {
+const ChangePasswordConfig = () => {
+    const { user, getUser } = useContext(UserContext);
     const [editing, setEditing] = useState(false);
     const { messageJsx, setMessage } = useFlashMessage();
 

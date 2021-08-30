@@ -16,7 +16,9 @@ export function FormatStatus(status){
                                 ? 'gray'
                                 : status === 1
                                     ? 'green'
-                                    : status === 2 && 'orange'
+                                    : status === 2
+                                        ? 'orange'
+                                        : 'red'
                             }
                 />
             </span>

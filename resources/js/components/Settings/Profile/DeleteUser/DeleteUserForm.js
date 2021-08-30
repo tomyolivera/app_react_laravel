@@ -1,8 +1,9 @@
 import React from 'react'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { Button, FormGroup, Label } from 'reactstrap'
+import { Form, Formik } from 'formik'
 import axios from 'axios';
-import CancelButton from '../../Global/CancelButton';
+import CancelButton from '../../../Global/Button/CancelButton';
+import StyledFormGroup from '../../../Styles/StyledFormGroup';
+import SubmitButton from '../../../Global/Button/SubmitButton';
 
 const DeleteUserForm = ({ user, setEditing, setMessage, callback }) => {
     return (
@@ -44,7 +45,7 @@ const DeleteUserForm = ({ user, setEditing, setMessage, callback }) => {
                 }
             }}
         >
-        {({ errors, isSubmitting, isValid }) => (
+        {({ errors, isSubmitting }) => (
                 <>
                     <div className="rounded p-3 bg-dark text-light mb-3">
                         <h5 className="text-danger">Are you sure you want to delete your user account?</h5>
@@ -54,29 +55,23 @@ const DeleteUserForm = ({ user, setEditing, setMessage, callback }) => {
                         <p>- All your friends</p>
                     </div>
                     <Form>
-                        {/* User Password */}
-                        Password
-                        <Field className="form-control mb-3"
-                            type="password"
-                            name="password"
-                            autoComplete="off"
-                        />
-                        <ErrorMessage name="password" component={() => <span className="error">{ errors.password }</span>} />
+                        {/* Password */}
+                        <StyledFormGroup name="password" 
+                                        errors={errors} />
 
                         {/* Repeat Password */}
-                        Repeat Password
-                        <Field className="form-control mb-3"
-                            type="password"
-                            name="repassword"
-                            autoComplete="off"
-                        />
-                        <ErrorMessage name="repassword" component={() => <span className="error">{ errors.repassword }</span>} />
+                        <StyledFormGroup name="repassword" 
+                                        errors={errors} />
 
                         {/* Buttons */}
-                        <Button type="submit" color="danger" disabled={isSubmitting || !isValid}>
-                            { isSubmitting ? 'Deleting' : 'Delete' }
-                        </Button>
-                        <CancelButton callback={setEditing} />
+                        <>
+                            <SubmitButton disabled={isSubmitting}
+                                        color="red"
+                                        text="Delete"
+                                        submittingText="Deleting"
+                                    />
+                            <CancelButton callback={setEditing} />
+                        </>
                     </Form>
                 </>
             )}

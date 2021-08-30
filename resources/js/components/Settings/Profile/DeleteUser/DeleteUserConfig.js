@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import DeleteUserData from './DeleteUserData';
 import DeleteUserForm from './DeleteUserForm';
 
-import { useFlashMessage } from '../../../CustomHooks/useFlashMessage';
+import { useFlashMessage } from '../../../../CustomHooks';
+import UserContext from '../../../../context/user';
 
-const DeleteUserConfig = ({ user, getUser }) => {
+const DeleteUserConfig = () => {
+    const { user, getUser } = useContext(UserContext);
     const [editing, setEditing] = useState(false);
     const { messageJsx, setMessage } = useFlashMessage();
 

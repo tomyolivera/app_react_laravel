@@ -1,11 +1,17 @@
+import React, { useContext } from 'react';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import Logout from '../../Auth/Logout';
 
-const Header = ({ Link, isLoggedIn, setIsLoggedIn, user }) => {
+import UserContext from '../../../context/user';
+import Logout from '../../Auth/Logout';
+import ThemeContext from '../../../context/theme';
+
+const Header = ({ Link, isLoggedIn, setIsLoggedIn }) => {
+    const { theme } = useContext(ThemeContext);
+    const { user } = useContext(UserContext);
+
     return (
-        <nav className="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav className={`navbar navbar-expand-md shadow-sm navbar-${theme}`}>
             <div className="container">
                 <Link to="/" className="navbar-brand">
                     Laravel
@@ -25,14 +31,14 @@ const Header = ({ Link, isLoggedIn, setIsLoggedIn, user }) => {
                                 ?
                                     <>
                                         <li className="nav-item dropdown">
-                                            <a id="navbarDropdown" className="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <a id="navbarDropdown" className="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                                 { user.name }
                                             </a>
 
-                                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                <Link to="/profile" className="nav-link">
-                                                    <FontAwesomeIcon color="green" icon={faUser} />
-                                                    <span className="mx-2">My Profile</span>
+                                            <div className={`dropdown-menu dropdown-menu-right ${theme === "light" ? "bg-light text-dark" : "bg-dark text-light"}`} aria-labelledby="navbarDropdown">
+                                                <Link to="/settings" className="nav-link">
+                                                    {/* <FontAwesomeIcon color="green" icon={faUser} /> */}
+                                                    <span className="mx-2">Settings</span>
                                                 </Link>
 
                                                 <hr className="m-0" />

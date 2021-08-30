@@ -1,3 +1,57 @@
 .error{
-    color: #c23737;
+    color: #f88484;
+}
+
+body, hr{
+    transition: all 800ms;
+}
+
+body.light{
+    background: #eee;
+    color: #333;
+}
+
+body.dark{
+    background: #111222;
+    color: #ccc;
+}
+
+hr{
+    background-color: #8f8f8f;
+}
+
+.rowTasks{
+    padding: 15px;
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+.rowTasks::-webkit-scrollbar-thumb{
+    border-radius: var(--border-radius);
+    background: #aaa;
+}
+
+.rowTasks::-webkit-scrollbar{
+    width: 3px;
+}
+
+/* Buttons */
+.button-green{
+    background:rgb(18, 141, 18);
+    color:white;
+}
+
+.button-green:hover{
+    background:rgb(20, 167, 20);
+    color:white;
+}
+
+.button-red{
+    background:rgb(158, 23, 23);
+    color:white;
+}
+
+.button-red:hover{
+    background:rgb(185, 24, 24);
+    color:white;
 }

@@ -1,6 +1,5 @@
-import React from 'react'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { Button, FormGroup, Label } from 'reactstrap'
+import React, { useContext } from 'react'
+import { Form, Formik } from 'formik'
 
 import { ValidationLoginSchema } from '../../../Validation';
 
@@ -8,8 +7,12 @@ import { useFlashMessage } from '../../../CustomHooks/useFlashMessage';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
+import UserContext from '../../../context/user';
+import SubmitButton from '../../Global/Button/SubmitButton';
+import StyledFormGroup from '../../Styles/StyledFormGroup'
 
-const LoginForm = ({ getUser, setIsLoggedIn }) => {
+const LoginForm = ({ setIsLoggedIn }) => {
+    const { getUser } = useContext(UserContext);
     const { messageJsx, setMessage } = useFlashMessage();
     const history = useHistory();
 
@@ -30,25 +33,22 @@ const LoginForm = ({ getUser, setIsLoggedIn }) => {
         >
         {({ errors, isSubmitting }) => (
                 <Form>
-                    <FormGroup className="mb-3">
-                        <Label>Email</Label>
-                        <Field className="form-control" name="email" />
-                        <ErrorMessage name="email" component={() => <span className="error">{errors.email}</span>} />
-                    </FormGroup>
+                    {/* Email */}
+                    <StyledFormGroup name="email"
+                                    error={errors} />
 
-                    <FormGroup className="mb-3">
-                        <Label>Password</Label>
-                        <Field className="form-control" name="password" type="password" />
-                        <ErrorMessage name="password" component={() => <span className="error">{errors.password}</span>} />
-                    </FormGroup>
+                    {/* Password */}
+                    <StyledFormGroup name="password"
+                                    error={errors} />
 
-                    <FormGroup className="mb-3 d-flex">
-                        <Button type="submit" color="dark" disabled={isSubmitting}>
-                            { isSubmitting ? 'Logging In' : 'Log In' }
-                        </Button>
-
+                    {/* Button */}
+                    <div className="d-flex">
+                        <SubmitButton disabled={isSubmitting}
+                                    text="Log In"
+                                    submittingText="Logging In"
+                                />
                         { messageJsx }
-                    </FormGroup>
+                    </div>
                 </Form>
             )}
         </Formik>

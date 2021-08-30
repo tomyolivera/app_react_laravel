@@ -9,71 +9,61 @@ import Header from './Layouts/Header/Header';
 import Tasks from './Tasks/Tasks';
 import LoginForm from './Auth/Login/LoginForm';
 import RegisterForm from './Auth/Register/RegisterForm';
-import Profile from './Profile/Profile';
 import LoadingPage from './Loading/LoadingPage';
+import UserProvider from '../context/user/Provider';
+import Settings from './Settings/Settings';
+import ThemeProvider from '../context/theme/Provider';
+import ChangeThemeButton from './Global/Button/ChangeThemeButton';
 
 function App() {
-    const [user, setUser] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const checkIfSessionExists = async () => {
-        const res = await axios.get('/user/isLoggedIn');
-        setIsLoggedIn(res.data);
-        return res.data;
-    }
-
-    const getUser = async () => {
-        try {
-            await axios.get('/api/user/').then(res => {
-                setUser(res.data);
-            });
-        } catch (e) {
-            console.error(e);
-        }
+        await axios.get('/user/isLoggedIn').then(({data}) => setIsLoggedIn(data));
     }
 
     useEffect(() => {
-        if(checkIfSessionExists()){
-            getUser();
-        }
+        (async function (){
+            await checkIfSessionExists().then(() => setLoading(false));
+        })();
     }, [])
 
     return (
-        <>
-            {/* <LoadingPage loading={loading} /> */}
-            <Router>
-                <Header Link={Link}
-                        isLoggedIn={isLoggedIn}
-                        setIsLoggedIn={setIsLoggedIn}
-                        loading={loading}
-                        user={user}
-                />
+        <ThemeProvider>
+            <UserProvider>
+                <LoadingPage loading={loading} />
+                <Router>
+                    <Header Link={Link}
+                            isLoggedIn={isLoggedIn}
+                            setIsLoggedIn={setIsLoggedIn}
+                            loading={loading}
+                    />
 
-                <Switch>
                     <div className="container mt-3">
-                        <Route path="/" exact component={Home} />
-                        {
-                            loading || isLoggedIn
-                            ?   <>
-                                    <Route path="/tasks" exact component={Tasks} />
-                                    <Route path="/profile" exact>
-                                        <Profile user={user} getUser={getUser} />
-                                    </Route>
-                                </>
-                            :   <>
-                                    <Route path="/login" exact>
-                                        <LoginForm setIsLoggedIn={setIsLoggedIn} getUser={getUser} />
-                                    </Route>
-                                    <Route path="/register" exact>
-                                        <RegisterForm setIsLoggedIn={setIsLoggedIn} getUser={getUser} />
-                                    </Route>
-                                </>
-                        }
+                        <Switch>
+                                <Route path="/" exact component={Home} />
+                                {
+                                    loading || isLoggedIn
+                                    ?   <>
+                                            <Route path="/tasks" exact component={Tasks} />
+                                            <Route path="/settings" exact component={Settings} />
+                                        </>
+                                    :   <>
+                                            <Route path="/login" exact>
+                                                <LoginForm setIsLoggedIn={setIsLoggedIn} />
+                                            </Route>
+                                            <Route path="/register" exact>
+                                                <RegisterForm setIsLoggedIn={setIsLoggedIn} />
+                                            </Route>
+                                        </>
+                                }
+                        </Switch>
                     </div>
-                </Switch>
-            </Router>
-        </>
+                </Router>
+                <ChangeThemeButton />
+            </UserProvider>
+        </ThemeProvider>
     );
 }
 

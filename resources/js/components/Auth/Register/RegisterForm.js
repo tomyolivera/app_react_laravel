@@ -1,11 +1,15 @@
-import React from 'react';
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { Button, FormGroup, Label } from 'reactstrap'
+import React, { useContext } from 'react';
+import { Form, Formik } from 'formik'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { ValidationRegisterSchema } from '../../../Validation';
+import UserContext from '../../../context/user';
 
-const RegisterForm = ({ setIsLoggedIn, getUser }) => {
+import StyledFormGroup from '../../Styles/StyledFormGroup';
+import SubmitButton from '../../Global/Button/SubmitButton';
+
+const RegisterForm = ({ setIsLoggedIn }) => {
+    const { getUser } = useContext(UserContext);
     const history = useHistory();
 
     return (
@@ -24,37 +28,27 @@ const RegisterForm = ({ setIsLoggedIn, getUser }) => {
         >
         {({ errors, isSubmitting }) => (
                 <Form>
-                    <FormGroup className="mb-3">
-                        <Label>Name</Label>
-                        <Field className="form-control" name="name" />
-                        <ErrorMessage name="name" component={() => <span className="error">{ errors.name }</span>} />
-                    </FormGroup>
+                    {/* Name */}
+                    <StyledFormGroup name="name"
+                                    errors={errors} />
 
-                    <FormGroup className="mb-3">
-                        <Label>Email</Label>
-                        <Field className="form-control" name="email" />
-                        <ErrorMessage name="email" component={() => <span className="error">{ errors.email }</span>} />
-                    </FormGroup>
+                    {/* Email */}
+                    <StyledFormGroup name="email"
+                                    errors={errors} />
 
-                    <FormGroup className="mb-3">
-                        <Label>Password</Label>
-                        <Field className="form-control" type="password" name="password" />
-                        <ErrorMessage name="password" component={() => <span className="error">{ errors.password }</span>} />
-                    </FormGroup>
+                    {/* Password */}
+                    <StyledFormGroup name="password"
+                                    errors={errors} />
 
-                    <FormGroup className="mb-3">
-                        <Label>Repeat Password</Label>
-                        <Field className="form-control" type="password" name="repassword" />
-                        <ErrorMessage name="repassword" component={() => <span className="error">{ errors.repassword }</span>} />
-                    </FormGroup>
+                    {/* Repeat Password */}
+                    <StyledFormGroup name="repassword"
+                                    errors={errors} />
 
-                    <FormGroup className="mb-3">
-                        <Button type="submit" color="success" disabled={isSubmitting}>
-                            {
-                                isSubmitting ? 'Creating Account' : 'Register'
-                            }
-                        </Button>
-                    </FormGroup>
+                    {/* Button */}
+                    <SubmitButton disabled={isSubmitting}
+                                text="Register"
+                                submittingText="Creating account"
+                                color="green" />
                 </Form>
             )}
         </Formik>

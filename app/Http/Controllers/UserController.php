@@ -92,8 +92,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        if($request->newpassword)
+        if($request->password)
             return $this->changePassword($request, $user);
+
+        if($request->disabled !== null)
+            return $this->disable($request, $user);
 
         $user->email = $request->email;
         $user->name = $request->name;
@@ -140,5 +143,30 @@ class UserController extends Controller
         }
 
         return response()->json("You are not allowed to delete this user", 403);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function disable(Request $request, User $user)
+    {
+        if(!Hash::check($request->password, $user->password))
+            return response()->json("That's not your actual password!", 201);
+
+        if(Auth::user()->id === $user->id){
+            $user->disabled = !$request->disabled;
+            $user->save();
+
+            return response()->json(
+                $request->disabled ? "Disabled" : "Enabled" . " successfully",
+                200
+            );
+        }
+
+        return response()->json("You are not allowed to disable this user", 403);
     }
 }

@@ -1,13 +1,25 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.config-section{
+    @apply shadow-md p-3 rounded-lg dark:bg-gray-800;
+}
+
+hr{
+    @apply dark:bg-gray-300;
+}
+
 .button{
-    @apply px-4 py-2  rounded transform duration-150 text-white;
+    @apply px-4 py-1 rounded transform duration-150 text-white;
 }
 
 .btn-green{
     @apply bg-green-700 hover:bg-green-900;
+}
+
+.btn-default{
+    @apply text-white bg-gray-800 hover:bg-gray-900 dark:text-gray-200 dark:bg-gray-500 dark:hover:bg-gray-600;
 }
 
 h1{ @apply mb-3 text-4xl font-semibold; }
@@ -15,4 +27,4 @@ h2{ @apply mb-3 text-3xl font-semibold; }
 h3{ @apply mb-3 text-2xl font-semibold; }
 h4{ @apply mb-3 text-lg font-semibold; }
 h5{ @apply mb-3 text-sm font-semibold; }
-h6{ @apply mb-3 text-xs font-semibold; }
+h6{ @apply mb-3 text-xs font-semibold; } */

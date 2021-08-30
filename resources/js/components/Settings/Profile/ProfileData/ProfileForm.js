@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { Button, FormGroup, Label } from 'reactstrap'
 import axios from 'axios';
-import CancelButton from '../../Global/CancelButton';
-import { ValidationUserEditSchema } from '../../../Validation/';
+import CancelButton from '../../../Global/Button/CancelButton';
+import { ValidationUserEditSchema } from '../../../../Validation/';
+import SubmitButton from '../../../Global/Button/SubmitButton';
+import ThemeContext from '../../../../context/theme';
+import StyledField from '../../../Styles/Input';
+import StyledFormGroup from '../../../Styles/StyledFormGroup'
 
 const ProfileForm = ({ user, setMessage, setEditing, callback }) => {
+    const { theme }  = useContext(ThemeContext)
+
     return (
         <Formik
             initialValues={user}
@@ -30,27 +35,33 @@ const ProfileForm = ({ user, setMessage, setEditing, callback }) => {
                 <Form>
                     {/* Name */}
                     <div className="row py-2">
-                        <Label className="col-sm-12 col-lg-3">Name</Label>
+                        <b className="col-sm-12 col-lg-3">Name</b>
                         <span className="col-sm-12 col-lg-9">
-                            <Field className="form-control" name="name" disabled={isSubmitting} />
-                            <ErrorMessage name="name" component={() => <span className="error">{ errors.name }</span>} />
+                            <StyledFormGroup name="name"
+                                            hasLabel={false}
+                                            errors={errors} />
                         </span>
-                    </div> <hr className="m-0" />
+                    </div>
 
                     {/* Email */}
                     <div className="row py-2">
-                        <Label className="col-sm-12 col-lg-3">Email</Label>
+                        <b className="col-sm-12 col-lg-3">Email</b>
                         <span className="col-sm-12 col-lg-9">
-                            <Field className="form-control" name="email" disabled={isSubmitting} />
-                            <ErrorMessage name="email" component={() => <span className="error">{ errors.email }</span>} />
+                            <StyledFormGroup name="email"
+                                        hasLabel={false}
+                                        errors={errors} />
                         </span>
-                    </div> <hr className="m-0" />
+                    </div>
 
                     {/* Status */}
                     <div className="row py-2">
-                        <Label className="col-sm-12 col-lg-3">Status</Label>
+                        <b className="col-sm-12 col-lg-3">Status</b>
                         <span className="col-sm-12 col-lg-9">
-                            <Field className="form-control" name="status" as="select" disabled={isSubmitting}>
+                            <Field className={`form-control ${theme === "dark" ? 'bg-dark text-light' : ''}`}
+                                    name="status"
+                                    as="select"
+                                    disabled={isSubmitting}
+                                >
                                 <option value="0">Offline</option>
                                 <option value="1">Online</option>
                                 <option value="2">Busy</option>
@@ -59,10 +70,10 @@ const ProfileForm = ({ user, setMessage, setEditing, callback }) => {
                         </span>
                     </div>
 
-                    <FormGroup className="mt-3">
-                        <Button type="submit" color="success" disabled={isSubmitting}>{ isSubmitting ? 'Saving' : 'Save' }</Button>
+                    <div className="mt-3">
+                        <SubmitButton disabled={isSubmitting} />
                         <CancelButton callback={setEditing} />
-                    </FormGroup>
+                    </div>
                 </Form>
             )}
         </Formik>
