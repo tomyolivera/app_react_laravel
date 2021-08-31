@@ -1,54 +1,28 @@
-import React, { useContext } from 'react'
-import ThemeContext from '../../context/theme'
+import React from 'react'
+import { BrowserRouter, Link, Route } from 'react-router-dom'
 
 import Profile from './Profile/Profile'
 import Security from './Security/Security'
 
-const ListTab = ({ name }) => {
-    const { theme } = useContext(ThemeContext);
-
-    return (
-        <a  id={`list-${name}-list`}
-            className={`list-group-item list-group-item-action ${theme === "dark" ? "bg-dark text-light" : "bg-light"}`}
-            data-toggle="list"
-            href={`#list-${name}`}
-        >
-        { name }
-        </a>
-    )
-}
-
-const TabPane = ({ name, Component }) => (
-    <div className="tab-pane fade show" id={`list-${name}`}>
-        <Component />
-    </div>
-)
-
 const Settings = () => {
     return (
-        <div className="row">
-            <div className="col-sm-12 col-lg-2">
-                <div className="list-group" id="list-tab">
-                    { ListTab({name: "Account"}) }
-                    { ListTab({name: "Profile"}) }
-                    { ListTab({name: "Appearence"}) }
-                    { ListTab({name: "Security"}) }
-                    { ListTab({name: "Notifications"}) }
-                    { ListTab({name: "Plans"}) }
+        <BrowserRouter basename="/settings">
+            <div className="row">
+                <div className="col-sm-12 col-lg-2">
+                    {/* List */}
+                    <div className="d-flex flex-column bg-dark rounded">
+                        <Link to="/profile" className="text-light text-decoration-none py-2 px-3">Profile</Link>
+                        <Link to="/security" className="text-light text-decoration-none py-2 px-3">Security</Link>
+                    </div>
+                </div>
+
+                <div className="col-sm-12 col-lg-10">
+                    {/* Page */}
+                    <Route path="/profile" exact component={Profile} />
+                    <Route path="/security" exact component={Security} />
                 </div>
             </div>
-            <div className="col-sm-12 col-lg-10">
-                <div className="tab-content">
-                    { TabPane({name: "Account", Component: Security}) }
-                    { TabPane({name: "Profile", Component: Profile}) }
-                    { TabPane({name: "Appearence", Component: Security}) }
-                    { TabPane({name: "Security", Component: Security}) }
-                    { TabPane({name: "Notifications", Component: Profile}) }
-                    { TabPane({name: "Applications", Component: Security}) }
-                    { TabPane({name: "Plans", Component: Profile}) }
-                </div>
-            </div>
-        </div>
+        </BrowserRouter>
     )
 }
 

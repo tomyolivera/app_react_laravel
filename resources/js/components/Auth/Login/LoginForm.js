@@ -35,11 +35,11 @@ const LoginForm = ({ setIsLoggedIn }) => {
                 <Form>
                     {/* Email */}
                     <StyledFormGroup name="email"
-                                    error={errors} />
+                                    errors={errors} />
 
                     {/* Password */}
                     <StyledFormGroup name="password"
-                                    error={errors} />
+                                    errors={errors} />
 
                     {/* Button */}
                     <div className="d-flex">

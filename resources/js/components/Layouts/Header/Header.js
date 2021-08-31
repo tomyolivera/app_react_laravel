@@ -36,7 +36,7 @@ const Header = ({ Link, isLoggedIn, setIsLoggedIn }) => {
                                             </a>
 
                                             <div className={`dropdown-menu dropdown-menu-right ${theme === "light" ? "bg-light text-dark" : "bg-dark text-light"}`} aria-labelledby="navbarDropdown">
-                                                <Link to="/settings" className="nav-link">
+                                                <Link to="/settings/profile" className="nav-link">
                                                     {/* <FontAwesomeIcon color="green" icon={faUser} /> */}
                                                     <span className="mx-2">Settings</span>
                                                 </Link>

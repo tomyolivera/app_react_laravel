@@ -31,7 +31,7 @@ Route::get('/tasks', function(){
     return view('app');
 });
 
-Route::get('/settings', function(){
+Route::get('/settings/{page}', function(){
     return view('app');
 });
 

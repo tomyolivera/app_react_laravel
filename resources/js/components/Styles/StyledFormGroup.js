@@ -4,7 +4,7 @@ import { FormGroup, Label } from 'reactstrap'
 import StyledField from './Input'
 import { ErrorMessage } from 'formik'
 
-const StyledFormGroup = ({ name, type="text", errors, hasLabel=true, labelText }) => {
+const StyledFormGroup = ({ name, type="text", errors, hasLabel=true, labelText, separateFields=true }) => {
     const inputType = name.includes("password")
                         ? "password"
                         : name.includes("date")
@@ -16,7 +16,7 @@ const StyledFormGroup = ({ name, type="text", errors, hasLabel=true, labelText }
                     : labelText || upperFirst(name) 
 
     return (
-        <FormGroup className="mb-3">
+        <FormGroup className={separateFields ? "mb-3" : "m-0"}>
             { hasLabel && <Label htmlFor={name}>{ label }</Label> }
             <StyledField name={name} type={inputType} />
             <ErrorMessage name={name} component={

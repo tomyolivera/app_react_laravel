@@ -39,6 +39,7 @@ const ProfileForm = ({ user, setMessage, setEditing, callback }) => {
                         <span className="col-sm-12 col-lg-9">
                             <StyledFormGroup name="name"
                                             hasLabel={false}
+                                            separateFields={false}
                                             errors={errors} />
                         </span>
                     </div>
@@ -49,6 +50,7 @@ const ProfileForm = ({ user, setMessage, setEditing, callback }) => {
                         <span className="col-sm-12 col-lg-9">
                             <StyledFormGroup name="email"
                                         hasLabel={false}
+                                        separateFields={false}
                                         errors={errors} />
                         </span>
                     </div>

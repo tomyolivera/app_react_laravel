@@ -12917,7 +12917,7 @@ function App() {
                 exact: true,
                 component: _Tasks_Tasks__WEBPACK_IMPORTED_MODULE_6__.default
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-                path: "/settings",
+                path: "/settings/:page",
                 exact: true,
                 component: _Settings_Settings__WEBPACK_IMPORTED_MODULE_11__.default
               })]
@@ -13061,10 +13061,10 @@ var LoginForm = function LoginForm(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(formik__WEBPACK_IMPORTED_MODULE_2__.Form, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Styles_StyledFormGroup__WEBPACK_IMPORTED_MODULE_8__.default, {
           name: "email",
-          error: errors
+          errors: errors
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Styles_StyledFormGroup__WEBPACK_IMPORTED_MODULE_8__.default, {
           name: "password",
-          error: errors
+          errors: errors
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "d-flex",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Global_Button_SubmitButton__WEBPACK_IMPORTED_MODULE_7__.default, {
@@ -13516,7 +13516,7 @@ var Header = function Header(_ref) {
                 className: "dropdown-menu dropdown-menu-right ".concat(theme === "light" ? "bg-light text-dark" : "bg-dark text-light"),
                 "aria-labelledby": "navbarDropdown",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Link, {
-                  to: "/settings",
+                  to: "/settings/profile",
                   className: "nav-link",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                     className: "mx-2",
@@ -14741,6 +14741,7 @@ var ProfileForm = function ProfileForm(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Styles_StyledFormGroup__WEBPACK_IMPORTED_MODULE_9__.default, {
               name: "name",
               hasLabel: false,
+              separateFields: false,
               errors: errors
             })
           })]
@@ -14754,6 +14755,7 @@ var ProfileForm = function ProfileForm(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Styles_StyledFormGroup__WEBPACK_IMPORTED_MODULE_9__.default, {
               name: "email",
               hasLabel: false,
+              separateFields: false,
               errors: errors
             })
           })]
@@ -14878,92 +14880,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _context_theme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../context/theme */ "./resources/js/context/theme/index.js");
-/* harmony import */ var _Profile_Profile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profile/Profile */ "./resources/js/components/Settings/Profile/Profile.js");
-/* harmony import */ var _Security_Security__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Security/Security */ "./resources/js/components/Settings/Security/Security.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _Profile_Profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile/Profile */ "./resources/js/components/Settings/Profile/Profile.js");
+/* harmony import */ var _Security_Security__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Security/Security */ "./resources/js/components/Settings/Security/Security.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
 
 
-
-var ListTab = function ListTab(_ref) {
-  var name = _ref.name;
-
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_theme__WEBPACK_IMPORTED_MODULE_1__.default),
-      theme = _useContext.theme;
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-    id: "list-".concat(name, "-list"),
-    className: "list-group-item list-group-item-action ".concat(theme === "dark" ? "bg-dark text-light" : "bg-light"),
-    "data-toggle": "list",
-    href: "#list-".concat(name),
-    children: name
-  });
-};
-
-var TabPane = function TabPane(_ref2) {
-  var name = _ref2.name,
-      Component = _ref2.Component;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-    className: "tab-pane fade show",
-    id: "list-".concat(name),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Component, {})
-  });
-};
 
 var Settings = function Settings() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: "row",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "col-sm-12 col-lg-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "list-group",
-        id: "list-tab",
-        children: [ListTab({
-          name: "Account"
-        }), ListTab({
-          name: "Profile"
-        }), ListTab({
-          name: "Appearence"
-        }), ListTab({
-          name: "Security"
-        }), ListTab({
-          name: "Notifications"
-        }), ListTab({
-          name: "Plans"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.BrowserRouter, {
+    basename: "/settings",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "row",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "col-sm-12 col-lg-2",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "d-flex flex-column bg-dark rounded",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+            to: "/profile",
+            className: "text-light text-decoration-none py-2 px-3",
+            children: "Profile"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+            to: "/security",
+            className: "text-light text-decoration-none py-2 px-3",
+            children: "Security"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "col-sm-12 col-lg-10",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+          path: "/profile",
+          exact: true,
+          component: _Profile_Profile__WEBPACK_IMPORTED_MODULE_1__.default
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
+          path: "/security",
+          exact: true,
+          component: _Security_Security__WEBPACK_IMPORTED_MODULE_2__.default
         })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-      className: "col-sm-12 col-lg-10",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "tab-content",
-        children: [TabPane({
-          name: "Account",
-          Component: _Security_Security__WEBPACK_IMPORTED_MODULE_3__.default
-        }), TabPane({
-          name: "Profile",
-          Component: _Profile_Profile__WEBPACK_IMPORTED_MODULE_2__.default
-        }), TabPane({
-          name: "Appearence",
-          Component: _Security_Security__WEBPACK_IMPORTED_MODULE_3__.default
-        }), TabPane({
-          name: "Security",
-          Component: _Security_Security__WEBPACK_IMPORTED_MODULE_3__.default
-        }), TabPane({
-          name: "Notifications",
-          Component: _Profile_Profile__WEBPACK_IMPORTED_MODULE_2__.default
-        }), TabPane({
-          name: "Applications",
-          Component: _Security_Security__WEBPACK_IMPORTED_MODULE_3__.default
-        }), TabPane({
-          name: "Plans",
-          Component: _Profile_Profile__WEBPACK_IMPORTED_MODULE_2__.default
-        })]
-      })
-    })]
+      })]
+    })
   });
 };
 
@@ -15073,11 +15033,13 @@ var StyledFormGroup = function StyledFormGroup(_ref) {
       errors = _ref.errors,
       _ref$hasLabel = _ref.hasLabel,
       hasLabel = _ref$hasLabel === void 0 ? true : _ref$hasLabel,
-      labelText = _ref.labelText;
+      labelText = _ref.labelText,
+      _ref$separateFields = _ref.separateFields,
+      separateFields = _ref$separateFields === void 0 ? true : _ref$separateFields;
   var inputType = name.includes("password") ? "password" : name.includes("date") ? "date" : type;
   var label = name.includes("re") ? "Repeat ".concat((0,lodash__WEBPACK_IMPORTED_MODULE_1__.upperFirst)(name.substr(2))) : labelText || (0,lodash__WEBPACK_IMPORTED_MODULE_1__.upperFirst)(name);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-    className: "mb-3",
+    className: separateFields ? "mb-3" : "m-0",
     children: [hasLabel && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
       htmlFor: name,
       children: label

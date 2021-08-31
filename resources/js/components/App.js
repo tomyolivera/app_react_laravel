@@ -47,7 +47,7 @@ function App() {
                                     loading || isLoggedIn
                                     ?   <>
                                             <Route path="/tasks" exact component={Tasks} />
-                                            <Route path="/settings" exact component={Settings} />
+                                            <Route path="/settings/:page" exact component={Settings} />
                                         </>
                                     :   <>
                                             <Route path="/login" exact>
